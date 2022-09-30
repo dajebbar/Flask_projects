@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, url_for, redirect
 
 app = Flask(__name__)
 
@@ -76,6 +76,19 @@ def samepage():
         location = request.form['location']
         return f'<p>Hello {name} from {location}. Form sent succesfully.</p>'
 
+
+@app.route('/redirection_page', methods=['GET', 'POST'])
+def redirection_page():
+    if request.method == 'GET':
+        return '''
+                 <form method="POST" action="/redirection_page">
+                   <input type="text" name="name">
+                   <input type="text" name="location">
+                   <input type="submit" value=submit>
+               </form>
+        '''
+    else:
+        return redirect(url_for('index'))
 
 
 if __name__=='__main__':
