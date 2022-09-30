@@ -60,6 +60,23 @@ def processjson():
 #     randomlist = data['randomlist']
 
 #     return jsonify({'name':name, 'location':location, 'randomkeyinlist':randomlist[1]})
+@app.route('/samepage', methods=['GET', 'POST'])
+def samepage():
+    if request.method == 'GET':
+        return '''
+               <form method="POST" action="/samepage">
+                   <input type="text" name="name">
+                   <input type="text" name="location">
+                   <input type="submit" value=submit>
+               </form>
+    
+    '''
+    else:
+        name = request.form['name']
+        location = request.form['location']
+        return f'<p>Hello {name} from {location}. Form sent succesfully.</p>'
+
+
 
 if __name__=='__main__':
     app.run(debug=True)
