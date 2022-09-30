@@ -32,6 +32,21 @@ def query():
         f'<h2>your Ip adress is {ip}<h2>'
     )
 
+@app.route('/theform')
+def theform():
+    return '''
+               <form method="POST" action="/process">
+                   <input type="text" name="name">
+                   <input type="text" name="location">
+                   <input type="submit" value=submit>
+               </form>
+    
+    '''
+@app.route('/process', methods=['POST'])
+def process():
+    name = request.form['name']
+    location = request.form['location']
+    return f'<p>Hello {name} from {location}. Form sent succesfully.</p>'
 
 if __name__=='__main__':
     app.run(debug=True)
