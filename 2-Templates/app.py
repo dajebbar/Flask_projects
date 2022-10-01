@@ -28,7 +28,13 @@ def json():
 @app.route('/contact/<string:name>', methods=['GET', 'POST'])
 def contact(name):
     session['name'] = name
-    return render_template('contact.html', name=name, display=False)
+    return render_template(
+        'contact.html', 
+        name=name, 
+        display=False, 
+        mylist = [i for i in range(4)],
+        mydict = {'name': 'zach', 'age': 48},
+    )
 
 @app.route('/query', methods=['GET', 'POST'])
 def query():

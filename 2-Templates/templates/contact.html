@@ -13,5 +13,13 @@
     {% else %}
     <h2>not displayed</h2>
     {% endif %}
+
+    {% for x in mylist %}
+    <p>{{x+1}}</p>
+    {% endfor%}
+
+    {% for k, v in mydict.items() %}
+    <p>{{k }}: {{v}}</p>
+    {% endfor %}
 </body>
 </html>
