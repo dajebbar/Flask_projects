@@ -1,9 +1,11 @@
-from flask import Flask, jsonify, request, url_for, redirect
+from unicodedata import name
+from flask import Flask, jsonify, request, url_for, redirect, session
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'thisissecret'
 @app.route('/')
 def index():
+    session.pop('name', None)
     return '<h3>Main page</h3>'
 
 @app.route('/json', methods=['GET', 'POST'])
@@ -14,13 +16,17 @@ def json():
         'age' : 44,
         'lang': ['french', 'english'],
     }
-    
+    if 'name' in session:
+        x['name'] = session['name']
+    else:
+        x['name'] = 'empty'
     return jsonify(x)
 
 
-@app.route('/contact', methods=['GET', 'POST'], defaults={'name': 'carlos'})
+@app.route('/contact', methods=['GET', 'POST'], defaults={'name': 'antonio'})
 @app.route('/contact/<string:name>', methods=['GET', 'POST'])
 def contact(name):
+    session['name'] = name
     return f'Hello {name}! You are in the contact page.'
 
 @app.route('/query', methods=['GET', 'POST'])
