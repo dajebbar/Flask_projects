@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{%block title%}Contact{%endblock%}
+
+{%block content%}
+{{super()}}
     <h1>Hello {{ name }}! You are in the contact page.</h1>
     {% if display %}
     <h2>this is been displayed</h2>
@@ -23,5 +20,4 @@
     {% endfor %}
 
     <img src="{{ url_for('static', filename='images/test.jpg') }}" alt="dogs playing">
-</body>
-</html>
+{%endblock%}
