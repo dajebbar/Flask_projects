@@ -1,4 +1,3 @@
-from unicodedata import name
 from flask import Flask, jsonify, request, url_for, redirect, session, render_template
 
 app = Flask(__name__)
@@ -7,7 +6,7 @@ app.config['SECRET_KEY'] = 'thisissecret'
 @app.route('/')
 def index():
     session.pop('name', None)
-    return '<h3>Main page</h3>'
+    return render_template('index.html')
 
 @app.route('/json', methods=['GET', 'POST'])
 def json():
