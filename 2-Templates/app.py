@@ -1,7 +1,40 @@
-from flask import Flask, jsonify, request, url_for, redirect, session, render_template
+from flask import (
+    Flask, 
+    jsonify, 
+    request, 
+    url_for, 
+    redirect, 
+    session, 
+    render_template,
+    g,
+
+)
+import sqlite3
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisissecret'
+
+def connect_db():
+    #path to database
+    sql = sqlite3.connect('./data.db')
+    #change output of db from tuple to dict
+    sql.row_factory = sqlite3.Row
+
+    return sql
+
+def get_db():
+    #store db output in global object 'g'
+    if not hasattr(g, 'sqlite3'):
+        g.sqlite_db = connect_db()
+
+    return g.sqlite_db
+
+@app.teardown_appcontext
+def close_db(error):
+    #close db
+    if not hasattr(g, 'sqlite_db'):
+        g.sqlite_db.close()
 
 @app.route('/')
 def index():
