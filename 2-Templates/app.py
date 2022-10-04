@@ -17,7 +17,7 @@ app.config['SECRET_KEY'] = 'thisissecret'
 
 def connect_db():
     #path to database
-    sql = sqlite3.connect('./data.db')
+    sql = sqlite3.connect('../data.db')
     #change output of db from tuple to dict
     sql.row_factory = sqlite3.Row
 
@@ -33,7 +33,7 @@ def get_db():
 @app.teardown_appcontext
 def close_db(error):
     #close db
-    if not hasattr(g, 'sqlite_db'):
+    if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
 @app.route('/')
@@ -119,6 +119,13 @@ def redirection_page():
     else:
         return redirect(url_for('index'))
 
+
+@app.route('/viewresults')
+def viewresults():
+    db = get_db()
+    cur = db.execute('select id, name, location from users')
+    results = cur.fetchall()
+    return f"<h1>ID: {results[0]['id']}, Name: {results[0]['name']}, Location: {results[0]['location']}</h1>"
 
 if __name__=='__main__':
     app.run(debug=True)
