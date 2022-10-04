@@ -2,6 +2,7 @@ from flask import (
     Flask,
     render_template,
     g,
+    request,
 )
 import sqlite3
 
@@ -9,7 +10,7 @@ app = Flask(__name__)
 
 def connect_db():
     #path to database
-    sql = sqlite3.connect('../data.db')
+    sql = sqlite3.connect('food_log.db')
     #change output of db from tuple to dict
     sql.row_factory = sqlite3.Row
 
@@ -37,8 +38,16 @@ def index():
 def view():
     return render_template('day.html')
 
-@app.route('/food')
+@app.route('/food', methods=['GET', 'POST'])
 def food():
+    if request.method == 'POST':
+        food_name = request.form['food-name']
+        protein = request.form['protein']
+        carbs = request.form['carbohydrates']
+        fat = request.form['fat']
+
+        return f"<h2>{food_name}, Proteins: {protein}, Carbs: {carbs}, Fats: {fat}</h2>"
+            
     return render_template('add_food.html')
 
 
