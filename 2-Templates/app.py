@@ -87,6 +87,11 @@ def theform():
 def process():
     name = request.form['name']
     location = request.form['location']
+
+    db = get_db()
+    db.execute('insert into users (name, location) values (?, ?)', [name, location])
+    db.commit()
+
     return f'<p>Hello {name} from {location}. Form sent succesfully.</p>'
 
 @app.route('/processjson', methods=['GET', 'POST'])
@@ -125,7 +130,7 @@ def viewresults():
     db = get_db()
     cur = db.execute('select id, name, location from users')
     results = cur.fetchall()
-    return f"<h1>ID: {results[0]['id']}, Name: {results[0]['name']}, Location: {results[0]['location']}</h1>"
+    return f"<h1>ID: {results[2]['id']}, Name: {results[2]['name']}, Location: {results[2]['location']}</h1>"
 
 if __name__=='__main__':
     app.run(debug=True)
