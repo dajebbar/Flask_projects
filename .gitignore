@@ -220,4 +220,12 @@ pip-selfcheck.json
 # Ignore code-workspaces
 *.code-workspace
 
+### Database ###
+*.accdb
+*.db
+*.dbf
+*.mdb
+*.pdb
+*.sqlite3
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,flask,virtualenv
