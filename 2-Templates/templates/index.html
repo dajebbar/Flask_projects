@@ -4,4 +4,8 @@
 
 {%block content%}
 <h3>Main page</h3>
+<h1>Database Results</h1>
+{%for item in results%}
+<p>ID: {{item.id}}, Name: {{item.name}}, Location: {{item.location}}</p>
+{%endfor%}
 {%endblock%}

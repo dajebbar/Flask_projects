@@ -39,7 +39,10 @@ def close_db(error):
 @app.route('/')
 def index():
     session.pop('name', None)
-    return render_template('index.html')
+    db = get_db()
+    cur =db.execute('select id, name, location from users')
+    results = cur.fetchall()
+    return render_template('index.html', results=results)
 
 @app.route('/json', methods=['GET', 'POST'])
 def json():
