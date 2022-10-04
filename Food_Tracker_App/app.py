@@ -42,11 +42,21 @@ def view():
 def food():
     if request.method == 'POST':
         food_name = request.form['food-name']
-        protein = request.form['protein']
-        carbs = request.form['carbohydrates']
-        fat = request.form['fat']
+        protein = int(request.form['protein'])
+        carbs = int(request.form['carbohydrates'])
+        fat = int(request.form['fat'])
+        calories = 4 * protein + 4 * carbs + 9 * fat
 
-        return f"<h2>{food_name}, Proteins: {protein}, Carbs: {carbs}, Fats: {fat}</h2>"
+        db = get_db()
+        db.execute('''
+                    insert into food (name, protein, carbohydrates, fat, calories) 
+                    values (?, ?, ?, ?, ?)''',
+
+                    [food_name, protein, carbs, fat, calories]
+        )
+        db.commit()
+
+        return f"<h2>Succesfully sent to database</h2>"
             
     return render_template('add_food.html')
 
