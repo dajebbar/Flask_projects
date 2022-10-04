@@ -1,20 +1,21 @@
 from flask import (
     Flask,
+    render_template
 )
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return None
+    return render_template('home.html')
 
 @app.route('/view')
 def view():
-    return None
+    return render_template('day.html')
 
-@app.route('/add_food')
-def add_food():
-    return None
+@app.route('/food')
+def food():
+    return render_template('add_food.html')
 
 
 if __name__=='__main__':
