@@ -24,6 +24,35 @@
             
             <input type="submit" value=submit>
         </form>
+        <hr>
+        
+        <div>
+            
+            {%for item in results%}
+            
+            <p>{{item.reports}}</p>
+            <p>{{item.age}}</p>
+            <p>{{item.income}}</p>
+            <p>{{item.share}}</p>
+            <p>{{item.expenditure}}</p>
+            <p>{{item.owner}}</p>
+            <p>{{item.selfemp}}</p>
+            <p>{{item.dependents}}</p>
+            <p>{{item.months}}</p>
+            <p>{{item.majorcards}}</p>
+            <p>{{item.active}}</p>
+
+            {%endfor%}
+
+            {%if score%}
+            <h3>Score: <b>{{score.round(3)}}%</b>. Card: <b>{{card}}</b>.</h3>
+            {%endif%}
+            
+
+        </div>
+
+
+
        <!-- <h3>Score:{{score}}% your card is {{card}}</h3>
         <ul>
             <li ><a>reports: {{reports}}</a></li>

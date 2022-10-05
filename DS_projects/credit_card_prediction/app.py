@@ -26,9 +26,12 @@ file = 'model_C=1.0.bin'
 with open(file, 'rb') as f_in:
     dv, model = pickle.load(f_in)
 
+@app.route('/<score>')
+@app.route('/<card>')
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
+        
         customer = {
             'reports' : float(request.form['reports']), 
             'age' : float(request.form['age']), 
@@ -47,27 +50,31 @@ def index():
         
         if score >= 50.:
             card = 'Accepted'
-            # print(f'The score is {res.round(3)}%, card {card}.')
+
         else:
             card = 'Rejected'
-            # print(f'The score is {res.round(3)}%, card {card}.')
-        return f'''<div>
-                    <ul>
-                    <li>reports={customer['reports']}</li>
-                    <li>age={customer['age']}</li>
-                    <li>income={customer['income']}</li>
-                    <li>share={customer['share']}</li>
-                    <li>expenditure={customer['expenditure']}</li>
-                    <li>owner={customer['owner']}</li>
-                    <li>selfemp={customer['selfemp']}</li>
-                    <li>dependents={customer['dependents']}</li>
-                    <li>months={customer['months']}</li>
-                    <li>majorcards={customer['majorcards']}</li>
-                    <li>active={customer['active']}</li>
-                    </ul>
-                    <p>The score is <b>{score.round(3)}%</b>.</p> 
-                    <p>So customer is <b>{card}<b>!</p>
-                </div>'''
+
+        results = [{k:v}for k,v in customer.items()]
+        
+        return render_template('index.html', results=results, score=score, card=card)
+        
+        # return f'''<div>
+        #             <ul>
+        #             <li>reports={customer['reports']}</li>
+        #             <li>age={customer['age']}</li>
+        #             <li>income={customer['income']}</li>
+        #             <li>share={customer['share']}</li>
+        #             <li>expenditure={customer['expenditure']}</li>
+        #             <li>owner={customer['owner']}</li>
+        #             <li>selfemp={customer['selfemp']}</li>
+        #             <li>dependents={customer['dependents']}</li>
+        #             <li>months={customer['months']}</li>
+        #             <li>majorcards={customer['majorcards']}</li>
+        #             <li>active={customer['active']}</li>
+        #             </ul>
+        #             <p>The score is <b>{score.round(3)}%</b>.</p> 
+        #             <p>So customer is <b>{card}<b>!</p>
+        #         </div>'''
     
     return render_template('index.html')
 
