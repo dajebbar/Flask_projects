@@ -228,4 +228,7 @@ pip-selfcheck.json
 *.pdb
 *.sqlite3
 
+###Folders###
+.ipynb_checkpoints/
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,flask,virtualenv
