@@ -17,8 +17,8 @@ with open(file, 'rb') as f_in:
     dv, model = pickle.load(f_in)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/predict', methods=['POST'])
+def predict():
     customer = request.get_json()
     X = dv.transform([customer])
     y_pred = model.predict_proba(X)[0,1]
